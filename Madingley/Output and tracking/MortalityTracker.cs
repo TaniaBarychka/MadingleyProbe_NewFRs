@@ -85,11 +85,11 @@ namespace Madingley
         /// <param name="mortalitySource"></param>
         public void RecordMortality(uint latIndex, uint lonIndex,
             uint birthStep, uint timestep, double currentMass,double adultMass, uint functionalGroup, 
-            uint cohortID, double numberDied, string mortalitySource)
+            uint cohortID, double numberDied, string mortalitySource, double cohortAbundance)
         {
             // Write the time step and the abundance of the new cohort to the output file for diagnostic purposes
             string newline = Convert.ToString(latIndex + "\t" + lonIndex + "\t" + birthStep + "\t" + timestep + "\t" + currentMass + "\t" + adultMass + "\t" +
-            functionalGroup + "\t" + cohortID + "\t" + numberDied + "\t" + mortalitySource);
+            functionalGroup + "\t" + cohortID + "\t" + numberDied + "\t" + mortalitySource + "\t" + cohortAbundance);
 
             string CohortIDString = Convert.ToString(cohortID);
 
