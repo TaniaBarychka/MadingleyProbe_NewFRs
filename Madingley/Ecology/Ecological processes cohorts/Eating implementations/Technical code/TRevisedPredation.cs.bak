@@ -189,6 +189,8 @@ namespace Madingley
         /// </summary>
         private double _AbundancePredator;
 
+        public double CategoryEctoEndo;
+
         private double _ReferenceMassRatioScalingTerrestrial;
         private double _ReferenceMassRatioScalingMarine;
 
@@ -273,7 +275,7 @@ namespace Madingley
         /// <param name="madingleyStockDefinitions">The definitions for stocks in the model</param>
         /// <remarks>This only works if: a) predation is initialised in every grid cell; and b) if parallelisation is done by latitudinal strips
         /// It is critical to run this every time step</remarks>
-        public void InitializeEatingPerTimeStep(GridCellCohortHandler gridCellCohorts, GridCellStockHandler gridCellStocks, 
+        public void InitializeEatingPerTimeStep(GridCellCohortHandler gridCellCohorts, GridCellStockHandler gridCellStocks,
             FunctionalGroupDefinitions madingleyCohortDefinitions, FunctionalGroupDefinitions madingleyStockDefinitions)
         {
             // Get the functional group indices of all heterotroph cohorts (i.e. potential prey)
@@ -325,9 +327,9 @@ namespace Madingley
         /// <param name="cellEnvironment">The environment in the current grid cell</param>
         /// <param name="madingleyCohortDefinitions">The functional group definitions for cohorts in the model</param>
         /// <param name="madingleyStockDefinitions">The functional group definitions for stocks  in the model</param>
-        public void GetEatingPotentialMarine(GridCellCohortHandler gridCellCohorts, GridCellStockHandler gridCellStocks, int[] actingCohort, 
-            SortedList<string, double[]> cellEnvironment, uint currentMonth, 
-            FunctionalGroupDefinitions madingleyCohortDefinitions, FunctionalGroupDefinitions 
+        public void GetEatingPotentialMarine(GridCellCohortHandler gridCellCohorts, GridCellStockHandler gridCellStocks, int[] actingCohort,
+            SortedList<string, double[]> cellEnvironment, uint currentMonth,
+            FunctionalGroupDefinitions madingleyCohortDefinitions, FunctionalGroupDefinitions
             madingleyStockDefinitions)
         {
 
@@ -464,7 +466,7 @@ namespace Madingley
         /// <param name="gridCellCohorts">Cohorts in this grid cell</param>
         /// <param name="actingCohort">The predator cohort</param>
         /// <param name="functionalGroupIndicesToEat">The functional groups which this predator eats</param>
-        /// <param name="logPredatorMassPlusLogPredatorOptimalBodySizeRatio">Log predator mass plus its optimal prey body-size ratio</param>
+        /// <param name="logOptimalPreyBodySizeRatio">The (log-transformed) optimal ratio of prey to predator body mass</param>
         private void PopulateBinnedPreyAbundance(GridCellCohortHandler gridCellCohorts, int[] actingCohort, int[] functionalGroupIndicesToEat,
             double logPredatorMassPlusLogPredatorOptimalBodySizeRatio)
         {
@@ -540,47 +542,42 @@ namespace Madingley
             // Get the abundance of the acting (predator) cohort
             _AbundancePredator = gridCellCohorts[actingCohort].CohortAbundance;
 
-            // Pre-calculate individual values for this predator
-
-            // New model of attack rates and handling times based on fitting FoRAGE database data
-            // Units in FoRAGE; m2 gram-1 day-1, only need to convert attack rates from m2 to ha.
-
-            // Get the endotherm/ectotherm status of the acting cohort
-            string Thermy = madingleyCohortDefinitions.GetTraitNames("Endo/Ectotherm", gridCellCohorts[actingCohort].FunctionalGroupIndex);
-
-            // Switch to the appropriate functional response parameters for ecto/endotherms
-            switch (Thermy)
+            // Getting thermoregulation of the acting (predator) cohort
+            if (madingleyCohortDefinitions.GetTraitNames("Endo/Ectotherm", gridCellCohorts[actingCohort].FunctionalGroupIndex) == "endotherm")
             {
-                case "ectotherm":
-
-                    //_KillRateConstantMassExponentEcto = 0.749;
-                    //_KillRateConstantEcto = 0.22748;
-                    //_HandlingTimeExponentTerrestrialEcto = -0.221;
-                    //_HandlingTimeScalarTerrestrialEcto = 0.10177;
-                    //_ActivationEnergyAttackRateEcto = 0.576;
-
-                    _SpecificPredatorKillRateConstant = _KillRateConstantEcto * Math.Pow((_BodyMassPredator), (_KillRateConstantMassExponentEcto)) * Math.Exp((_ActivationEnergyAttackRateEcto * (CellTemperature[currentMonth] - ReferenceTemperature)) / (_BoltzmannConstant * (CellTemperature[currentMonth] + 273) * (ReferenceTemperature + 273))); //in m2
-                                                                                                                                                                                                                                                                                                                                                                    // Convert FoRAGE attack rate from m2 to ha 
-                    _SpecificPredatorKillRateConstant *= 0.0001; //a(II) in ha/day   
-
-                    _ReferenceMassRatioScalingTerrestrial = _HandlingTimeScalarTerrestrialEcto * Math.Pow((_BodyMassPredator), _HandlingTimeExponentTerrestrialEcto);
-
-
-                    break;
-
-                case "endotherm":
-
-
-                    _SpecificPredatorKillRateConstant = _KillRateConstant * Math.Pow(_BodyMassPredator, (_KillRateConstantMassExponent));
-
-                    _ReferenceMassRatioScalingTerrestrial = HandlingTimeScalarTerrestrial * Math.Pow(_ReferenceMass / _BodyMassPredator, _HandlingTimeExponentTerrestrial);
-
-
-                    break;
-
+                CategoryEctoEndo = 1;
+            }
+            else
+            {
+                CategoryEctoEndo = 0;
             }
 
-           
+            // Pre-calculate individual values for this predator
+
+
+            /////////////////////// MAY 2020///////////////////////////////
+            //new model of attack rates and handling times based on fitting FoRAGE database data:
+
+            //units in Madingley: ha gram-1 day-1. Units in FoRAGE; m2 gram-1 day-1 . Only need to convert attack rates from m2 to ha (x0.0001).
+
+            //attack rates based on FoRAGE parameters (m2):
+
+            //_SpecificPredatorKillRateConstant = _KillRateConstantEcto * Math.Pow(ReferenceMass / (_BodyMassPredator), (KillRateConstantMassExponentEcto)) * Math.Exp((_ActivationEnergyAttackRate * (CellTemperature[currentMonth] - ReferenceTemperature)) / (_BoltzmannConstant * (CellTemperature[currentMonth] + 273) * (ReferenceTemperature + 273))); //in m2
+
+
+            //New tests for fitted model distinguishing ecto and endotherms
+            _SpecificPredatorKillRateConstant = _KillRateConstantEcto * Math.Exp(_CoefEctoEndo * CategoryEctoEndo) * Math.Pow(_BodyMassPredator, KillRateConstantMassExponentEcto) * Math.Exp(((_ActivationEnergyAttackRate + _InteractionTempEctoEndo*CategoryEctoEndo)* (CellTemperature[currentMonth] - ReferenceTemperature)) / (_BoltzmannConstant * (CellTemperature[currentMonth] + 273) * (ReferenceTemperature + 273))); //in m2
+
+            //convert from attack rate using FoRAGE parameters where attack rate is m2 to Madingley where attack rate is ha 
+            _SpecificPredatorKillRateConstant *= 0.0001; //a(II) in ha/day
+
+            //_KillRatePreyMassExponent = _KillRatePreyMassExponentEcto;
+
+
+            //handling times: the prey exponent is in RevisedPredation
+            _HandlingTimePreyExponentTerrestrial = _HandlingTimePreyExponentTerrestrialEcto;
+
+            _ReferenceMassRatioScalingTerrestrial = _HandlingTimeScalarTerrestrialEcto * Math.Pow(_BodyMassPredator, _HandlingTimeExponentTerrestrialEcto);
 
             _SpecificPredatorTimeUnitsEatingPerGlobalTimeStep = _DeltaT * _ProportionOfTimeEating;
             _PredatorAssimilationEfficiency = _AssimilationEfficiency;
@@ -603,7 +600,7 @@ namespace Madingley
             _PredatorAbundanceMultipliedByTimeEating = _AbundancePredator * _SpecificPredatorTimeUnitsEatingPerGlobalTimeStep;
 
 
-                _PredatorLogOptimalPreyBodySizeRatio = gridCellCohorts[actingCohort[0]][actingCohort[1]].LogOptimalPreyBodySizeRatio;
+            _PredatorLogOptimalPreyBodySizeRatio = gridCellCohorts[actingCohort[0]][actingCohort[1]].LogOptimalPreyBodySizeRatio;
 
             
             LogPredatorMassPlusPredatorLogOptimalPreyBodySizeRatio = Math.Log(_BodyMassPredator) + _PredatorLogOptimalPreyBodySizeRatio;
@@ -624,17 +621,16 @@ namespace Madingley
                     // Get the bin number of this prey cohort
                     PreyMassBinNumber = GetBinNumber(_BodyMassPrey, LogPredatorMassPlusPredatorLogOptimalPreyBodySizeRatio);
 
-                    // Calculate the (type III converted) attack rate for the acting cohort on this prey cohort
+                    // Calculate the (type III converted) attack rate for the acting cohort on this prey cohort // Georgina
                     // Can add the variance to intercept of attack rates for Type III for 20 C degrees reference temeprature calculated by Lucas on 09/09 based on the 95%CIs method (0.489845 = 1 se; 0.489845^2 = 2 se). For example, ...III=Math.Pow(0.489815,3) *..
-                    switch (Thermy)
-                    {
-                        case "ectotherm":
 
-                            _SpecificPredatorKillRateConstant_III = (64.0 / 27.0) * CalculateHandlingTimeTerrestrialFORAGE(_BodyMassPrey) * Math.Pow(_SpecificPredatorKillRateConstant, 2);
-                            _SpecificPredatorKillRateConstant = _SpecificPredatorKillRateConstant_III;
-                            break;
+                    double test1 = CalculateHandlingTimeTerrestrial(_BodyMassPrey);
 
-                    }
+                    double test2 = CalculateAttackRateTerrestrial(_BodyMassPrey);
+
+                    //_SpecificPredatorKillRateConstant_III = Math.Pow((4 / 3), 3) * CalculateHandlingTimeTerrestrial(_BodyMassPrey) * Math.Pow(CalculateAttackRateTerrestrial(_BodyMassPrey), 2);
+                    _SpecificPredatorKillRateConstant_III = Math.Pow((4 / 3), 3) * test1 * Math.Pow(test2, 2);
+
 
                     // Check whether the prey cohort still exists in the model (i.e. body mass > 0)            
                     if ((0 < PreyMassBinNumber) && (PreyMassBinNumber < NumberOfBins) && (_BodyMassPrey > 0))
@@ -644,23 +640,10 @@ namespace Madingley
                             gridCellCohorts[FunctionalGroup][i].CohortAbundance, _BodyMassPrey, PreyMassBinNumber, FunctionalGroup,
                             _BodyMassPredator, _CarnivoreFunctionalGroups[FunctionalGroup], _OmnivoreFunctionalGroups[FunctionalGroup],
                             _OmnivoreFunctionalGroups[actingCohort[0]], _PredatorLogOptimalPreyBodySizeRatio);
-
-                        switch (Thermy)
-                        {
-                            case "ectotherm":
-                                // Add the time required to handle the potential abundance eaten from this cohort to the cumulative total for all cohorts
-                                _TimeUnitsToHandlePotentialFoodItems += _PotentialAbundanceEaten[FunctionalGroup][i] *
-                            CalculateHandlingTimeTerrestrialFORAGE(_BodyMassPrey);
-
-                                break;
-                            case "endotherm":
-                                // Add the time required to handle the potential abundance eaten from this cohort to the cumulative total for all cohorts
-                                _TimeUnitsToHandlePotentialFoodItems += _PotentialAbundanceEaten[FunctionalGroup][i] *
+                        
+                        // Add the time required to handle the potential abundance eaten from this cohort to the cumulative total for all cohorts
+                        _TimeUnitsToHandlePotentialFoodItems += _PotentialAbundanceEaten[FunctionalGroup][i] *
                             CalculateHandlingTimeTerrestrial(_BodyMassPrey);
-
-                                break;
-
-                        }
                     }
                     else
                     {
@@ -670,26 +653,11 @@ namespace Madingley
                 }
             }
 
-            switch (Thermy)
-            {
-                case "ectotherm":
-                    // No cannibalism; do this outside the loop to speed up the calculations
-                    _TimeUnitsToHandlePotentialFoodItems -= PotentialAbundanceEaten[actingCohort[0]][actingCohort[1]] *
-                CalculateHandlingTimeTerrestrialFORAGE(_BodyMassPredator);
-                    PotentialAbundanceEaten[actingCohort[0]][actingCohort[1]] = 0.0;
-                    break;
-
-                case "endotherm":
-                    // No cannibalism; do this outside the loop to speed up the calculations
-                    _TimeUnitsToHandlePotentialFoodItems -= PotentialAbundanceEaten[actingCohort[0]][actingCohort[1]] *
+            // No cannibalism; do this outside the loop to speed up the calculations
+            _TimeUnitsToHandlePotentialFoodItems -= PotentialAbundanceEaten[actingCohort[0]][actingCohort[1]] *
                 CalculateHandlingTimeTerrestrial(_BodyMassPredator);
-                    PotentialAbundanceEaten[actingCohort[0]][actingCohort[1]] = 0.0;
-                    break;
-
-            }
-
-
-            }
+            PotentialAbundanceEaten[actingCohort[0]][actingCohort[1]] = 0.0;
+        }
 
 
         /// <summary>
@@ -761,8 +729,7 @@ namespace Madingley
                             trackProcesses.RecordMortality((uint)cellEnvironment["LatIndex"][0], (uint)cellEnvironment["LonIndex"][0], gridCellCohorts
                                 [FunctionalGroup][i].BirthTimeStep, currentTimestep, gridCellCohorts[FunctionalGroup][i].IndividualBodyMass,
                                 gridCellCohorts[FunctionalGroup][i].AdultMass, gridCellCohorts[FunctionalGroup][i].FunctionalGroupIndex,
-                                gridCellCohorts[FunctionalGroup][i].CohortID[0], AbundancesEaten[FunctionalGroup][i], "predation",
-                                gridCellCohorts[FunctionalGroup][i].CohortAbundance + _AbundancesEaten[FunctionalGroup][i]);
+                                gridCellCohorts[FunctionalGroup][i].CohortID[0], AbundancesEaten[FunctionalGroup][i], "predation");
                         }
 
                         // If the model is being run for specific locations and if track processes has been specified, then track the mass flow between

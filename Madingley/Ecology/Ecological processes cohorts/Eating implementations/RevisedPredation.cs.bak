@@ -35,9 +35,7 @@ namespace Madingley
             get { return _AssimilationEfficiency; }
             set { _AssimilationEfficiency = value; }
         }
-        
-        // Comment out ecto/endo version of parameters
-        
+
         /// <summary>
         /// The scalar of the relationship between handling time and the function of predator and prey masses for terrestrial animals
         /// </summary>
@@ -93,36 +91,17 @@ namespace Madingley
         /// Get and set the exponent applied to prey mass in calculating handling time
         /// </summary>
         public double HandlingTimePreyExponentTerrestrialEndo { get { return _HandlingTimePreyExponentTerrestrialEndo; } }
-        
-
-        /// <summary>
-        /// The scalar of the relationship between handling time and the function of predator and prey masses for terrestrial animals
-        /// </summary>
-        private double _HandlingTimeScalarTerrestrial;
-        /// <summary>
-        /// Get the scalar of the relationship between handling time and the function of predator and prey masses
-        /// </summary>
-        public double HandlingTimeScalarTerrestrial { get { return _HandlingTimeScalarTerrestrial; } }
-
-        /// <summary>
-        /// The exponent applied to predator mass in the handling time relationship for terrestrial animals
-        /// </summary>
-        private double _HandlingTimeExponentTerrestrial;
-        /// <summary>
-        /// Get the exponent applied to predator mass in the handling time relationship
-        /// </summary>
-        public double HandlingTimeExponentTerrestrial { get { return _HandlingTimeExponentTerrestrial; } }
 
         /// <summary>
         /// The exponent applied to prey mass in calculating handling time
         /// </summary>
         private double _HandlingTimePreyExponentTerrestrial;
 
+        private double _InteractionHandlingTimePreyEctoEndo;
         /// <summary>
-        /// Get and set the exponent applied to prey mass in calculating handling time
+        /// Get and set the for interaction between prey mass and thermoregulation in handling times
         /// </summary>
-        public double HandlingTimePreyExponentTerrestrial { get { return _HandlingTimePreyExponentTerrestrial; } }
-
+        public double InteractionHandlingTimePreyEctoEndo { get { return _InteractionHandlingTimePreyEctoEndo; } }
 
         /// <summary>
         /// The activation energy of reactions leading to the temperature-dependence of handling time
@@ -143,26 +122,6 @@ namespace Madingley
         /// Get and set the activation energy of reactions leading to the temperature-dependence of attack rate
         /// </summary>
         public double ActivationEnergyAttackRate { get { return _ActivationEnergyAttackRate; } }
-
-        /// <summary>
-        /// The activation energy of reactions leading to the temperature-dependence of attack rate
-        /// </summary>
-        private double _ActivationEnergyAttackRateEcto;
-
-        /// <summary>
-        /// Get and set the activation energy of reactions leading to the temperature-dependence of attack rate
-        /// </summary>
-        public double ActivationEnergyAttackRateEcto { get { return _ActivationEnergyAttackRateEcto; } }
-
-        /// <summary>
-        /// The activation energy of reactions leading to the temperature-dependence of attack rate
-        /// </summary>
-        private double _ActivationEnergyAttackRateEndo;
-
-        /// <summary>
-        /// Get and set the activation energy of reactions leading to the temperature-dependence of attack rate
-        /// </summary>
-        public double ActivationEnergyAttackRateEndo { get { return _ActivationEnergyAttackRateEndo; } }
 
         /// <summary>
         /// The scalar of the relationship between handling time and the function of predator and prey masses for terrestrial animals
@@ -201,7 +160,6 @@ namespace Madingley
             set { _SpecificPredatorHandlingTimeScaling = value; }
         }
 
-        
         /// <summary>
         /// The maximum kill rate for a predator of 1 g on prey of an optimal size
         /// </summary>
@@ -210,7 +168,7 @@ namespace Madingley
         /// Get the maximum kill rate for a predator of 1 g on prey of an optimal size
         /// </summary>
         public double KillRateConstantEcto { get { return _KillRateConstantEcto; } }
-        
+
         /// <summary>
         /// The maximum kill rate for a predator of 1 g on prey of an optimal size
         /// </summary>
@@ -219,16 +177,6 @@ namespace Madingley
         /// Get the maximum kill rate for a predator of 1 g on prey of an optimal size
         /// </summary>
         public double KillRateConstantEndo { get { return _KillRateConstantEndo; } }
-        
-
-        /// <summary>
-        /// The maximum kill rate for a predator of 1 g on prey of an optimal size
-        /// </summary>
-        private double _KillRateConstant;
-        /// <summary>
-        /// Get the maximum kill rate for a predator of 1 g on prey of an optimal size
-        /// </summary>
-        public double KillRateConstant { get { return _KillRateConstant; } }
 
         /// <summary>
         /// The maximum kill rate for a predator of 1 g on prey of an optimal size
@@ -340,7 +288,6 @@ namespace Madingley
         /// </summary>
         public double KillRateConstantMassExponentMarine { get { return _KillRateConstantMassExponentMarine; } }
 
-        
         /// <summary>
         /// The exponent on body mass in the relationship between body mass and attack rate
         /// </summary>
@@ -349,7 +296,7 @@ namespace Madingley
         /// Get and set the exponent on body mass in the relationship between body mass and attack rate
         /// </summary>
         public double KillRateConstantMassExponentEcto { get { return _KillRateConstantMassExponentEcto; } }
-        
+
         /// <summary>
         /// The exponent on body mass in the relationship between body mass and attack rate
         /// </summary>
@@ -358,16 +305,6 @@ namespace Madingley
         /// Get and set the exponent on body mass in the relationship between body mass and attack rate
         /// </summary>
         public double KillRateConstantMassExponentEndo { get { return _KillRateConstantMassExponentEndo; } }
-        
-
-        /// <summary>
-        /// The exponent on body mass in the relationship between body mass and attack rate
-        /// </summary>
-        private double _KillRateConstantMassExponent;
-        /// <summary>
-        /// Get and set the exponent on body mass in the relationship between body mass and attack rate
-        /// </summary>
-        public double KillRateConstantMassExponent { get { return _KillRateConstantMassExponent; } }
 
         private double _BoltzmannConstant;
 
@@ -382,7 +319,6 @@ namespace Madingley
         /// </summary>
         public double ReferenceTemperature { get { return _ReferenceTemperature; } }
 
-        
         /// <summary>
         /// The exponent on prey body mass in the relationship between prey body mass and attack rate
         /// </summary>
@@ -391,7 +327,7 @@ namespace Madingley
         /// Get and set the exponent on body mass in the relationship between body mass and attack rate
         /// </summary>
         public double KillRatePreyMassExponentEcto { get { return _KillRatePreyMassExponentEcto; } }
-        
+
         /// <summary>
         /// The exponent on prey body mass in the relationship between prey body mass and attack rate
         /// </summary>
@@ -400,65 +336,53 @@ namespace Madingley
         /// Get and set the exponent on body mass in the relationship between body mass and attack rate
         /// </summary>
         public double KillRatePreyMassExponentEndo { get { return _KillRatePreyMassExponentEndo; } }
-        
 
         /// <summary>
         /// The exponent on prey body mass in the relationship between prey body mass and attack rate
         /// </summary>
         private double _KillRatePreyMassExponent;
-        /// <summary>
-        /// Get and set the exponent on body mass in the relationship between body mass and attack rate
-        /// </summary>
-        public double KillRatePreyMassExponent { get { return _KillRatePreyMassExponent; } }
 
+        private double _CoefEctoEndo;
         /// <summary>
-        /// Initialise parameters for predation
+        /// Get and set the coefficient of thermoregulation term in attack rates
         /// </summary>
+        public double CoefEctoEndo { get { return _CoefEctoEndo; } }
+
+        private double _InteractionTempEctoEndo;
+        /// <summary>
+        /// Get and set the for interaction between temperature and thermoregulation in attack rates
+        /// </summary>
+        public double InteractionTempEctoEndo { get { return _InteractionTempEctoEndo; } }
+
+
         public void InitialiseParametersPredation()
         {
             _TimeUnitImplementation =
                 EcologicalParameters.TimeUnits[(int)EcologicalParameters.Parameters["Predation.RevisedPredation.TimeUnitImplementation"]];
-            _HandlingTimeScalarTerrestrial = EcologicalParameters.Parameters["Predation.RevisedPredation.Terrestrial.HandlingTimeScalar"];
-            _HandlingTimeExponentTerrestrial = EcologicalParameters.Parameters["Predation.RevisedPredation.Terrestrial.HandlingTimeExponent"];
-            _HandlingTimeScalarTerrestrial = EcologicalParameters.Parameters["Predation.RevisedPredation.Terrestrial.HandlingTimeScalar"];
-            _HandlingTimeScalarMarine = EcologicalParameters.Parameters["Predation.RevisedPredation.Marine.HandlingTimeScalar"];
-            _HandlingTimeExponentMarine = EcologicalParameters.Parameters["Predation.RevisedPredation.Marine.HandlingTimeExponent"];
-            _ActivationEnergyHandlingTime = EcologicalParameters.Parameters["Predation.RevisedPredation.Terrestrial.ActivationEnergyHandlingTime"];
-            _ReferenceMass = EcologicalParameters.Parameters["Predation.RevisedPredation.HandlingTimeReferenceMass"];
-            _KillRateConstant = EcologicalParameters.Parameters["Predation.RevisedPredation.KillRateConstant"];
-            _KillRateConstantMassExponent = EcologicalParameters.Parameters["Predation.RevisedPredation.KillRateConstantMassExponent"];
-            _KillRatePreyMassExponent = EcologicalParameters.Parameters["Predation.RevisedPredation.KillRatePreyMassExponent"];
-            _ActivationEnergyAttackRate = EcologicalParameters.Parameters["Predation.RevisedPredation.ActivationEnergyAttackRate"];
-            _FeedingPreferenceStandardDeviation = EcologicalParameters.Parameters["Predation.RevisedPredation.FeedingPreferenceStandardDeviation"];
-            NumberOfBins = (int)EcologicalParameters.Parameters["Predation.RevisedPredation.NumberOfMassAggregationBins"];
-            _BoltzmannConstant = EcologicalParameters.Parameters["BoltzmannConstant"];
-            _ReferenceTemperature = EcologicalParameters.Parameters["Predation.RevisedPredation.ReferenceTemperature"];
-            _KillRateConstantEcto = EcologicalParameters.Parameters["Predation.RevisedPredation.Ectotherm.KillRateConstant"];
-            _KillRateConstantMassExponentEcto = EcologicalParameters.Parameters["Predation.RevisedPredation.Ectotherm.KillRateConstantMassExponent"];
-            _KillRatePreyMassExponentEcto = EcologicalParameters.Parameters["Predation.RevisedPredation.Ectotherm.KillRatePreyMassExponent"];
-            _ActivationEnergyAttackRateEcto = EcologicalParameters.Parameters["Predation.RevisedPredation.Ectotherm.ActivationEnergyAttackRate"];
-            _ActivationEnergyAttackRateEndo = EcologicalParameters.Parameters["Predation.RevisedPredation.Ectotherm.ActivationEnergyAttackRate"];
-            _KillRateConstantEndo = EcologicalParameters.Parameters["Predation.RevisedPredation.Endotherm.KillRateConstant"];
-            _KillRateConstantMassExponentEndo = EcologicalParameters.Parameters["Predation.RevisedPredation.Endotherm.KillRateConstantMassExponent"];
-            _HandlingTimeScalarTerrestrialEcto = EcologicalParameters.Parameters["Predation.RevisedPredation.Ectotherm.Terrestrial.HandlingTimeScalar"];
-            _HandlingTimeExponentTerrestrialEcto = EcologicalParameters.Parameters["Predation.RevisedPredation.Ectotherm.Terrestrial.HandlingTimeExponent"];
-            _HandlingTimeScalarTerrestrialEndo = EcologicalParameters.Parameters["Predation.RevisedPredation.Endotherm.Terrestrial.HandlingTimeScalar"];
-            _HandlingTimeExponentTerrestrialEndo = EcologicalParameters.Parameters["Predation.RevisedPredation.Endotherm.Terrestrial.HandlingTimeExponent"];
-
-            /*
             _HandlingTimeScalarTerrestrialEcto = EcologicalParameters.Parameters["Predation.RevisedPredation.Ectotherm.Terrestrial.HandlingTimeScalar"];
             _HandlingTimeExponentTerrestrialEcto = EcologicalParameters.Parameters["Predation.RevisedPredation.Ectotherm.Terrestrial.HandlingTimeExponent"];
             _HandlingTimeScalarTerrestrialEndo = EcologicalParameters.Parameters["Predation.RevisedPredation.Endotherm.Terrestrial.HandlingTimeScalar"];
             _HandlingTimeExponentTerrestrialEndo = EcologicalParameters.Parameters["Predation.RevisedPredation.Endotherm.Terrestrial.HandlingTimeExponent"];
             _HandlingTimePreyExponentTerrestrialEcto = EcologicalParameters.Parameters["Predation.RevisedPredation.Ectotherm.Terrestrial.HandlingTimePreyExponentTerrestrial"];
             _HandlingTimePreyExponentTerrestrialEndo = EcologicalParameters.Parameters["Predation.RevisedPredation.Endotherm.Terrestrial.HandlingTimePreyExponentTerrestrial"];
+            _HandlingTimeScalarMarine = EcologicalParameters.Parameters["Predation.RevisedPredation.Marine.HandlingTimeScalar"];
+            _HandlingTimeExponentMarine = EcologicalParameters.Parameters["Predation.RevisedPredation.Marine.HandlingTimeExponent"];
+            _ActivationEnergyHandlingTime = EcologicalParameters.Parameters["Predation.RevisedPredation.Terrestrial.ActivationEnergyHandlingTime"];
+            _ReferenceMass = EcologicalParameters.Parameters["Predation.RevisedPredation.HandlingTimeReferenceMass"];
             _KillRateConstantEcto = EcologicalParameters.Parameters["Predation.RevisedPredation.Ectotherm.KillRateConstant"];
             _KillRateConstantMassExponentEcto = EcologicalParameters.Parameters["Predation.RevisedPredation.Ectotherm.KillRateConstantMassExponent"];
             _KillRateConstantEndo = EcologicalParameters.Parameters["Predation.RevisedPredation.Endotherm.KillRateConstant"];
             _KillRateConstantMassExponentEndo = EcologicalParameters.Parameters["Predation.RevisedPredation.Endotherm.KillRateConstantMassExponent"];
+            _ActivationEnergyAttackRate = EcologicalParameters.Parameters["Predation.RevisedPredation.ActivationEnergyAttackRate"];
+            _FeedingPreferenceStandardDeviation = EcologicalParameters.Parameters["Predation.RevisedPredation.FeedingPreferenceStandardDeviation"];
+            NumberOfBins = (int)EcologicalParameters.Parameters["Predation.RevisedPredation.NumberOfMassAggregationBins"];
+            _BoltzmannConstant = EcologicalParameters.Parameters["BoltzmannConstant"];
+            _ReferenceTemperature = EcologicalParameters.Parameters["Predation.RevisedPredation.ReferenceTemperature"];
             _KillRatePreyMassExponentEcto = EcologicalParameters.Parameters["Predation.RevisedPredation.Ectotherm.KillRatePreyMassExponent"];
-            _KillRatePreyMassExponentEndo = EcologicalParameters.Parameters["Predation.RevisedPredation.Endotherm.KillRatePreyMassExponent"];
-            */
+            _CoefEctoEndo = EcologicalParameters.Parameters["Predation.RevisedPredation.Terrestrial.CoefEctoEndo"];
+            _InteractionTempEctoEndo = EcologicalParameters.Parameters["Predation.RevisedPredation.Terrestrial.InteractionTempEctoEndo"];
+            _InteractionHandlingTimePreyEctoEndo = EcologicalParameters.Parameters["Predation.RevisedPredation.Terrestrial.InteractionHandlingTimePreyEctoEndo"];
+            
         }
 
 
@@ -471,31 +395,22 @@ namespace Madingley
             // Write out parameters
             sw.WriteLine("Predation\tTimeUnitImplementation\t" + Convert.ToString(_TimeUnitImplementation));
             sw.WriteLine("Predation\tReferenceMass_g\t" + Convert.ToString(_ReferenceMass));
-            sw.WriteLine("Predation\tHandlingTimeScalarTerrestrial\t" + Convert.ToString(_HandlingTimeScalarTerrestrial));
-            sw.WriteLine("Predation\tHandlingTimeExponentTerrestrial\t" + Convert.ToString(_HandlingTimeExponentTerrestrial));
-            sw.WriteLine("Predation\tHandlingTimePreyExponentTerrestrial\t" + Convert.ToString(_HandlingTimePreyExponentTerrestrial));
-            sw.WriteLine("Predation\tHandlingTimeScalarMarine\t" + Convert.ToString(_HandlingTimeScalarMarine));
-            sw.WriteLine("Predation\tHandlingTimeExponentMarine\t" + Convert.ToString(_HandlingTimeExponentMarine));
-            sw.WriteLine("Predation\tActivationEnergyHandlingTime\t" + Convert.ToString(_ActivationEnergyHandlingTime));
-            sw.WriteLine("Predation\tKillRateConstant\t" + Convert.ToString(_KillRateConstant));
-            sw.WriteLine("Predation\tKillRateConstantMassExponent\t" + Convert.ToString(_KillRateConstantMassExponent));
-            sw.WriteLine("Predation\tKillRatePreyMassExponent\t" + Convert.ToString(_KillRatePreyMassExponent));
-            sw.WriteLine("Predation\tFeedingPreferenceStandardDeviation\t" + Convert.ToString(_FeedingPreferenceStandardDeviation));
-            sw.WriteLine("Predation\tActivationEnergyAttackRate\t" + Convert.ToString(_ActivationEnergyAttackRate));
-            /*
             sw.WriteLine("Predation\tHandlingTimeScalarTerrestrialEctotherm\t" + Convert.ToString(_HandlingTimeScalarTerrestrialEcto));
             sw.WriteLine("Predation\tHandlingTimeExponentTerrestrialEctotherm\t" + Convert.ToString(_HandlingTimeExponentTerrestrialEcto));
             sw.WriteLine("Predation\tHandlingTimePreyExponentTerrestrialEctotherm\t" + Convert.ToString(_HandlingTimePreyExponentTerrestrialEcto));
             sw.WriteLine("Predation\tHandlingTimeScalarTerrestrialEndotherm\t" + Convert.ToString(_HandlingTimeScalarTerrestrialEndo));
             sw.WriteLine("Predation\tHandlingTimeExponentTerrestrialEndotherm\t" + Convert.ToString(_HandlingTimeExponentTerrestrialEndo));
             sw.WriteLine("Predation\tHandlingTimePreyExponentTerrestrialEndotherm\t" + Convert.ToString(_HandlingTimePreyExponentTerrestrialEndo));
+            sw.WriteLine("Predation\tHandlingTimeScalarMarine\t" + Convert.ToString(_HandlingTimeScalarMarine));
+            sw.WriteLine("Predation\tHandlingTimeExponentMarine\t" + Convert.ToString(_HandlingTimeExponentMarine));
+            sw.WriteLine("Predation\tActivationEnergyHandlingTime\t" + Convert.ToString(_ActivationEnergyHandlingTime));
             sw.WriteLine("Predation\tKillRateConstantEctotherm\t" + Convert.ToString(_KillRateConstantEcto));
             sw.WriteLine("Predation\tKillRateConstantEndotherm\t" + Convert.ToString(_KillRateConstantEndo));
-            sw.WriteLine("Predation\tKillRateConstantMassExponentEctotherm\t" + Convert.ToString(_KillRateConstantMassExponentEcto));
-            sw.WriteLine("Predation\tKillRateConstantMassExponentEndotherm\t" + Convert.ToString(_KillRateConstantMassExponentEndo));
-            sw.WriteLine("Predation\tKillRatePreyMassExponentEndotherm\t" + Convert.ToString(_KillRatePreyMassExponentEndo));
-            sw.WriteLine("Predation\tKillRatePreyMassExponentEctotherm\t" + Convert.ToString(_KillRatePreyMassExponentEcto));
-            */
+            sw.WriteLine("Predation\tFeedingPreferenceStandardDeviation\t" + Convert.ToString(_FeedingPreferenceStandardDeviation));
+            sw.WriteLine("Predation\tActivationEnergyHandlingTime\t" + Convert.ToString(_ActivationEnergyHandlingTime));
+            sw.WriteLine("Predation\tKillRateConstantEctotherm\t" + Convert.ToString(_KillRateConstantEcto));
+            sw.WriteLine("Predation\tKillRateConstantEndotherm\t" + Convert.ToString(_KillRateConstantEndo));
+
         }
 
 
@@ -569,32 +484,39 @@ namespace Madingley
                     (((Math.Log(preyIndividualMass / predatorIndividualMass) - logOptimalPreyPredatorMassRatio) /
                     _FeedingPreferenceStandardDeviation), 2)));
 
-            // Calculate the individual killing rate with Type III functional response
+            // Calculate the individual killing rate ///Tania to remove mass conversion and Rall's bit: * Math.Pow((preyIndividualMass), _KillRatePreyMassExponent)
             //Type III
-            //return _SpecificPredatorKillRateConstant_III * RelativeFeedingPreference * BinnedPreyDensities[preyFunctionalGroup, preyMassBinNumber];
-            //in TRevisedPredation pass type III or master version of SpecificPredatorKillRateConstant depending on ecto/endotherm
-            return _SpecificPredatorKillRateConstant * RelativeFeedingPreference * BinnedPreyDensities[preyFunctionalGroup, preyMassBinNumber];
-        }     
+            return _SpecificPredatorKillRateConstant_III * RelativeFeedingPreference * BinnedPreyDensities[preyFunctionalGroup, preyMassBinNumber];  //check with Tim and Georgina
+            //Type II
+            //return _SpecificPredatorKillRateConstant * RelativeFeedingPreference * BinnedPreyDensities[preyFunctionalGroup, preyMassBinNumber];  //check with Tim and Georgina
+        }
+
+        /// <summary>
+        /// Calculates the attack rate of an individual predator in relation to an individual prey cohort in the terrestrial realm
+        /// </summary>
+        /// <param name="preyIndividualMass">The body mass of prey individuals</param>
+        /// <returns>The attack rate of an individual predator in relation to an individual prey cohort</returns>
+        private double CalculateAttackRateTerrestrial(double preyIndividualMass)
+        {
+            //FoRAGE-based: 
+             
+            return _SpecificPredatorKillRateConstant * Math.Pow(preyIndividualMass, _KillRatePreyMassExponentEcto);
+        }
 
         /// <summary>
         /// Calculates the time for an individual predator to handle an individual prey in the terrestrial realm
         /// </summary>
         /// <param name="preyIndividualMass">The body mass of prey individuals</param>
         /// <returns>The time for an individual predator to handle an individual prey</returns>
-        private double CalculateHandlingTimeTerrestrialFORAGE(double preyIndividualMass)
-        {
-            // Calculate FoRAGE-based handling time
-            _HandlingTimePreyExponentTerrestrial = 0.228;
-            return _ReferenceMassRatioScalingTerrestrial * Math.Pow((preyIndividualMass), _HandlingTimePreyExponentTerrestrial);
-
-        }
-
         private double CalculateHandlingTimeTerrestrial(double preyIndividualMass)
         {
-            return _ReferenceMassRatioScalingTerrestrial * preyIndividualMass;
+            //FoRAGE-based: 
+            return _ReferenceMassRatioScalingTerrestrial * Math.Pow(preyIndividualMass, (_HandlingTimePreyExponentTerrestrial + _InteractionHandlingTimePreyEctoEndo * CategoryEctoEndo));
+            
+
         }
-
-
+        
+        
         /// <summary>
         /// Calculates the time for an individual predator to handle an individual prey in the marine realm
         /// </summary>
@@ -613,7 +535,7 @@ namespace Madingley
         /// <param name="predatorAbundanceMultipliedByTimeEating">The abundance in the predator cohort</param>
         /// <param name="preyAbundance">The abundance in the prey cohort</param>
         /// <returns>The actual abundance of a prey cohort eaten by a predator cohort</returns>
-        private double CalculateAbundanceEaten(double potentialKills, double predatorAbundanceMultipliedByTimeEating, 
+        private double CalculateAbundanceEaten(double potentialKills, double predatorAbundanceMultipliedByTimeEating,
             double totalHandlingTimePlusOne, double preyAbundance)
         {
             // This is the more explicit but slower version
