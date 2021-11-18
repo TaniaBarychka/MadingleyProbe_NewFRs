@@ -160,7 +160,7 @@ namespace Madingley
                 trackProcesses.RecordMortality((uint)cellEnvironment["LatIndex"][0], (uint)cellEnvironment["LonIndex"][0],gridCellCohorts[actingCohort].BirthTimeStep, 
                     currentTimestep, gridCellCohorts[actingCohort].IndividualBodyMass, gridCellCohorts[actingCohort].AdultMass, 
                     gridCellCohorts[actingCohort].FunctionalGroupIndex,
-                    gridCellCohorts[actingCohort].CohortID[0], MortalityTotal, "sen/bg/starv");
+                    gridCellCohorts[actingCohort].CohortID[0], MortalityTotal, "sen/bg/starv", gridCellCohorts[actingCohort].CohortAbundance);
             }
 
             // Remove individuals that have died from the delta abundance for this cohort

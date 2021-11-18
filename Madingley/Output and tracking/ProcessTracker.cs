@@ -344,10 +344,10 @@ namespace Madingley
         /// <param name="numberDied">The number of individuals dying in this mortality event</param>
         /// <param name="mortalitySource">The type of mortality causing the individuals to die</param>
         public void RecordMortality(uint latIndex, uint lonIndex, uint birthTimeStep, uint timeStep, double currentMass, double adultMass, uint functionalGroup, uint cohortID, 
-            double numberDied,string mortalitySource)
+            double numberDied,string mortalitySource, double cohortAbundance)
         {
             _TrackMortality.RecordMortality(latIndex, lonIndex, birthTimeStep,
-                timeStep, currentMass, adultMass, functionalGroup, cohortID, numberDied, mortalitySource);
+                timeStep, currentMass, adultMass, functionalGroup, cohortID, numberDied, mortalitySource, cohortAbundance);
         }
 
         /// <summary>

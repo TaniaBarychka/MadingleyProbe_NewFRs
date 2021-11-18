@@ -83,13 +83,14 @@ namespace Madingley
         /// <param name="cohortID">The unique ID of the cohort</param>
         /// <param name="numberDied">The number of individuals </param>
         /// <param name="mortalitySource"></param>
+        /// <param name="cohortAbundance">The number of individuals in the cohort</param>
         public void RecordMortality(uint latIndex, uint lonIndex,
             uint birthStep, uint timestep, double currentMass,double adultMass, uint functionalGroup, 
-            uint cohortID, double numberDied, string mortalitySource)
+            uint cohortID, double numberDied, string mortalitySource, double cohortAbundance)
         {
             // Write the time step and the abundance of the new cohort to the output file for diagnostic purposes
             string newline = Convert.ToString(latIndex + "\t" + lonIndex + "\t" + birthStep + "\t" + timestep + "\t" + currentMass + "\t" + adultMass + "\t" +
-            functionalGroup + "\t" + cohortID + "\t" + numberDied + "\t" + mortalitySource);
+            functionalGroup + "\t" + cohortID + "\t" + numberDied + "\t" + mortalitySource + "\t" + cohortAbundance);
 
             string CohortIDString = Convert.ToString(cohortID);
 
