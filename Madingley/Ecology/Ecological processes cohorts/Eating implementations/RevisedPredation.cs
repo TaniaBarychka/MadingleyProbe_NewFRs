@@ -435,8 +435,8 @@ namespace Madingley
             _KillRateConstantEcto = EcologicalParameters.Parameters["Predation.RevisedPredation.Ectotherm.KillRateConstant"];
             _KillRateConstantMassExponentEcto = EcologicalParameters.Parameters["Predation.RevisedPredation.Ectotherm.KillRateConstantMassExponent"];
             _KillRatePreyMassExponentEcto = EcologicalParameters.Parameters["Predation.RevisedPredation.Ectotherm.KillRatePreyMassExponent"];
-            _ActivationEnergyAttackRateEcto = EcologicalParameters.Parameters["Predation.RevisedPredation.Ectotherm.ActivationEnergyAttackRate"];
-            _ActivationEnergyAttackRateEndo = EcologicalParameters.Parameters["Predation.RevisedPredation.Ectotherm.ActivationEnergyAttackRate"];
+            _ActivationEnergyAttackRateEcto = EcologicalParameters.Parameters["Predation.RevisedPredation.ActivationEnergyAttackRate"];
+            _ActivationEnergyAttackRateEndo = EcologicalParameters.Parameters["Predation.RevisedPredation.ActivationEnergyAttackRate"];
             _KillRateConstantEndo = EcologicalParameters.Parameters["Predation.RevisedPredation.Endotherm.KillRateConstant"];
             _KillRateConstantMassExponentEndo = EcologicalParameters.Parameters["Predation.RevisedPredation.Endotherm.KillRateConstantMassExponent"];
             _HandlingTimeScalarTerrestrialEcto = EcologicalParameters.Parameters["Predation.RevisedPredation.Ectotherm.Terrestrial.HandlingTimeScalar"];
@@ -583,7 +583,7 @@ namespace Madingley
         private double CalculateHandlingTimeTerrestrialFORAGE(double preyIndividualMass)
         {
             // Calculate FoRAGE-based handling time
-            _HandlingTimePreyExponentTerrestrial = 0.228;
+            _HandlingTimePreyExponentTerrestrial = 0.28772;
             return _ReferenceMassRatioScalingTerrestrial * Math.Pow((preyIndividualMass), _HandlingTimePreyExponentTerrestrial);
 
         }
