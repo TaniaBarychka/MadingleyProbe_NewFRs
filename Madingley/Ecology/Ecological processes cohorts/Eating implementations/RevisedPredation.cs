@@ -426,7 +426,7 @@ namespace Madingley
             _ReferenceMass = EcologicalParameters.Parameters["Predation.RevisedPredation.HandlingTimeReferenceMass"];
             _KillRateConstant = EcologicalParameters.Parameters["Predation.RevisedPredation.Endotherm.KillRateConstant"];
             _KillRateConstantMassExponent = EcologicalParameters.Parameters["Predation.RevisedPredation.Endotherm.KillRateConstantMassExponent"];
-            _KillRatePreyMassExponent = EcologicalParameters.Parameters["Predation.RevisedPredation.KillRatePreyMassExponent"];
+            _KillRatePreyMassExponent = EcologicalParameters.Parameters["Predation.RevisedPredation.Endotherm.KillRatePreyMassExponent"];
             _ActivationEnergyAttackRate = EcologicalParameters.Parameters["Predation.RevisedPredation.ActivationEnergyAttackRate"];
             _FeedingPreferenceStandardDeviation = EcologicalParameters.Parameters["Predation.RevisedPredation.FeedingPreferenceStandardDeviation"];
             NumberOfBins = (int)EcologicalParameters.Parameters["Predation.RevisedPredation.NumberOfMassAggregationBins"];
