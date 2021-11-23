@@ -418,15 +418,14 @@ namespace Madingley
         {
             _TimeUnitImplementation =
                 EcologicalParameters.TimeUnits[(int)EcologicalParameters.Parameters["Predation.RevisedPredation.TimeUnitImplementation"]];
-            _HandlingTimeScalarTerrestrial = EcologicalParameters.Parameters["Predation.RevisedPredation.Terrestrial.HandlingTimeScalar"];
-            _HandlingTimeExponentTerrestrial = EcologicalParameters.Parameters["Predation.RevisedPredation.Terrestrial.HandlingTimeExponent"];
-            _HandlingTimeScalarTerrestrial = EcologicalParameters.Parameters["Predation.RevisedPredation.Terrestrial.HandlingTimeScalar"];
+            _HandlingTimeExponentTerrestrial = EcologicalParameters.Parameters["Predation.RevisedPredation.Endotherm.Terrestrial.HandlingTimeExponent"];
+            _HandlingTimeScalarTerrestrial = EcologicalParameters.Parameters["Predation.RevisedPredation.Endotherm.Terrestrial.HandlingTimeScalar"];
             _HandlingTimeScalarMarine = EcologicalParameters.Parameters["Predation.RevisedPredation.Marine.HandlingTimeScalar"];
             _HandlingTimeExponentMarine = EcologicalParameters.Parameters["Predation.RevisedPredation.Marine.HandlingTimeExponent"];
             _ActivationEnergyHandlingTime = EcologicalParameters.Parameters["Predation.RevisedPredation.Terrestrial.ActivationEnergyHandlingTime"];
             _ReferenceMass = EcologicalParameters.Parameters["Predation.RevisedPredation.HandlingTimeReferenceMass"];
-            _KillRateConstant = EcologicalParameters.Parameters["Predation.RevisedPredation.KillRateConstant"];
-            _KillRateConstantMassExponent = EcologicalParameters.Parameters["Predation.RevisedPredation.KillRateConstantMassExponent"];
+            _KillRateConstant = EcologicalParameters.Parameters["Predation.RevisedPredation.Endotherm.KillRateConstant"];
+            _KillRateConstantMassExponent = EcologicalParameters.Parameters["Predation.RevisedPredation.Endotherm.KillRateConstantMassExponent"];
             _KillRatePreyMassExponent = EcologicalParameters.Parameters["Predation.RevisedPredation.KillRatePreyMassExponent"];
             _ActivationEnergyAttackRate = EcologicalParameters.Parameters["Predation.RevisedPredation.ActivationEnergyAttackRate"];
             _FeedingPreferenceStandardDeviation = EcologicalParameters.Parameters["Predation.RevisedPredation.FeedingPreferenceStandardDeviation"];
