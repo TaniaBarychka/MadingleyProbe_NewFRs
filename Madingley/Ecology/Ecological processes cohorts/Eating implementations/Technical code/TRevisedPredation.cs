@@ -562,7 +562,7 @@ namespace Madingley
                     //_ActivationEnergyAttackRateEcto = 0.576;
 
                     _SpecificPredatorKillRateConstant_withoutPrey = _KillRateConstantEcto * Math.Pow((_BodyMassPredator), (_KillRateConstantMassExponentEcto)) * Math.Exp((_ActivationEnergyAttackRateEcto * (CellTemperature[currentMonth] - ReferenceTemperature)) / (_BoltzmannConstant * (CellTemperature[currentMonth] + 273) * (ReferenceTemperature + 273))); //in m2
-                                                                                                                                                                                                                                                                                                                                                                    // Convert FoRAGE attack rate from m2 to ha 
+                                                                                                                                                                                                          // Convert FoRAGE attack rate from m2 to ha 
                     _SpecificPredatorKillRateConstant_withoutPrey *= 0.0001; //a(II) in ha/day   
 
                     _ReferenceMassRatioScalingTerrestrial = _HandlingTimeScalarTerrestrialEcto * Math.Pow((_BodyMassPredator), _HandlingTimeExponentTerrestrialEcto);
@@ -633,7 +633,12 @@ namespace Madingley
                     {
                         case "ectotherm":
 
-                            _SpecificPredatorKillRateConstant_III = (64.0 / 27.0) * CalculateHandlingTimeTerrestrial(_BodyMassPrey) * Math.Pow(_SpecificPredatorKillRateConstant_withoutPrey, 2);
+                            double test1 = CalculateHandlingTimeTerrestrial(_BodyMassPrey);
+
+                            double test2 = Math.Pow(_SpecificPredatorKillRateConstant_withoutPrey, 2);
+
+
+                            _SpecificPredatorKillRateConstant_III = (64.0 / 27.0)* test1 * test2;
                             _SpecificPredatorKillRateConstant = _SpecificPredatorKillRateConstant_III;
                             break;
 
