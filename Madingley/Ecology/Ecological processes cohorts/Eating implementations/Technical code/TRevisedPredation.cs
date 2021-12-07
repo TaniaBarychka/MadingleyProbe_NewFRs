@@ -648,22 +648,13 @@ namespace Madingley
                             _BodyMassPredator, _CarnivoreFunctionalGroups[FunctionalGroup], _OmnivoreFunctionalGroups[FunctionalGroup],
                             _OmnivoreFunctionalGroups[actingCohort[0]], _PredatorLogOptimalPreyBodySizeRatio);
 
-                        switch (Thermy)
-                        {
-                            case "ectotherm":
-                                // Add the time required to handle the potential abundance eaten from this cohort to the cumulative total for all cohorts
-                                _TimeUnitsToHandlePotentialFoodItems += _PotentialAbundanceEaten[FunctionalGroup][i] *
+
+
+                        // Add the time required to handle the potential abundance eaten from this cohort to the cumulative total for all cohorts
+                        _TimeUnitsToHandlePotentialFoodItems += _PotentialAbundanceEaten[FunctionalGroup][i] *
                             CalculateHandlingTimeTerrestrial(_BodyMassPrey);
 
-                                break;
-                            case "endotherm":
-                                // Add the time required to handle the potential abundance eaten from this cohort to the cumulative total for all cohorts
-                                _TimeUnitsToHandlePotentialFoodItems += _PotentialAbundanceEaten[FunctionalGroup][i] *
-                            CalculateHandlingTimeTerrestrial(_BodyMassPrey);
 
-                                break;
-
-                        }
                     }
                     else
                     {
@@ -679,25 +670,6 @@ namespace Madingley
                 CalculateHandlingTimeTerrestrial(_BodyMassPredator);
             PotentialAbundanceEaten[actingCohort[0]][actingCohort[1]] = 0.0;
 
-            /*
-            switch (Thermy)
-            {
-                case "ectotherm":
-                    // No cannibalism; do this outside the loop to speed up the calculations
-                    _TimeUnitsToHandlePotentialFoodItems -= PotentialAbundanceEaten[actingCohort[0]][actingCohort[1]] *
-                CalculateHandlingTimeTerrestrialFORAGE(_BodyMassPredator);
-                    PotentialAbundanceEaten[actingCohort[0]][actingCohort[1]] = 0.0;
-                    break;
-
-                case "endotherm":
-                    // No cannibalism; do this outside the loop to speed up the calculations
-                    _TimeUnitsToHandlePotentialFoodItems -= PotentialAbundanceEaten[actingCohort[0]][actingCohort[1]] *
-                CalculateHandlingTimeTerrestrial(_BodyMassPredator);
-                    PotentialAbundanceEaten[actingCohort[0]][actingCohort[1]] = 0.0;
-                    break;
-
-            }
-            */
 
         }
 
