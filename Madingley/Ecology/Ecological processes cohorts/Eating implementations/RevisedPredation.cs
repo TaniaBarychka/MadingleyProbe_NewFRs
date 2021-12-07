@@ -267,6 +267,34 @@ namespace Madingley
             set { _SpecificPredatorKillRateConstant_III = value; }
         }
 
+        /// <summary>
+        /// Pre-calculate the maximum kill rate for a specific predator of 1 g on prey of an optimal size before prey loop
+        /// </summary>
+        private double _SpecificPredatorKillRateConstant_withoutPrey;
+
+        /// <summary>
+        /// Get the pre-calculated maximum kill rate for a specific predator of 1 g on prey of an optimal size before prey loop
+        /// </summary>
+        public double SpecificPredatorKillRateConstant_withoutPrey
+        {
+            get { return _SpecificPredatorKillRateConstant_withoutPrey; }
+            set { _SpecificPredatorKillRateConstant_withoutPrey = value; }
+        }
+
+        /// <summary>
+        /// A variable to identify groups as ectotherms or endotherms
+        /// </summary>
+        private double _VarEctoEndo;
+
+        /// <summary>
+        /// A binary variable to identify groups as either ectotherms or endotherms used to replace switches in Predation files
+        /// </summary>
+        /// 
+        public double VarEctoEndo
+        {
+            get { return _VarEctoEndo; }
+            set { _VarEctoEndo = value; }
+        }
 
         /// <summary>
         /// The optimal ratio of prey to predator body masses for terrestrial animals
@@ -573,13 +601,14 @@ namespace Madingley
             //return _SpecificPredatorKillRateConstant_III * RelativeFeedingPreference * BinnedPreyDensities[preyFunctionalGroup, preyMassBinNumber];
             //in TRevisedPredation pass type III or master version of SpecificPredatorKillRateConstant depending on ecto/endotherm
             return _SpecificPredatorKillRateConstant * RelativeFeedingPreference * BinnedPreyDensities[preyFunctionalGroup, preyMassBinNumber];
-        }     
+        }
 
         /// <summary>
         /// Calculates the time for an individual predator to handle an individual prey in the terrestrial realm
         /// </summary>
         /// <param name="preyIndividualMass">The body mass of prey individuals</param>
         /// <returns>The time for an individual predator to handle an individual prey</returns>
+        /*
         private double CalculateHandlingTimeTerrestrialFORAGE(double preyIndividualMass)
         {
             // Calculate FoRAGE-based handling time
@@ -592,6 +621,21 @@ namespace Madingley
         {
             return _ReferenceMassRatioScalingTerrestrial * preyIndividualMass;
         }
+        */
+
+        /// <summary>
+        /// Calculates the time for an individual predator to handle an individual prey in the terrestrial realm
+        /// </summary>
+        /// <param name="preyIndividualMass">The body mass of prey individuals</param>
+        /// <returns>The time for an individual predator to handle an individual prey</returns>
+        /// 
+
+        private double CalculateHandlingTimeTerrestrial(double preyIndividualMass)
+        {
+            _HandlingTimePreyExponentTerrestrial = 0.28772;
+            return _VarEctoEndo * _ReferenceMassRatioScalingTerrestrial * Math.Pow((preyIndividualMass), _HandlingTimePreyExponentTerrestrial) + (1-VarEctoEndo) * _ReferenceMassRatioScalingTerrestrial * preyIndividualMass;
+        }
+
 
 
         /// <summary>

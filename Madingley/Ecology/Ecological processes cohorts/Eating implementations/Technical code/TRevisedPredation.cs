@@ -553,15 +553,17 @@ namespace Madingley
             {
                 case "ectotherm":
 
+                    _VarEctoEndo = 1;
+
                     //_KillRateConstantMassExponentEcto = 0.749;
                     //_KillRateConstantEcto = 0.22748;
                     //_HandlingTimeExponentTerrestrialEcto = -0.221;
                     //_HandlingTimeScalarTerrestrialEcto = 0.10177;
                     //_ActivationEnergyAttackRateEcto = 0.576;
 
-                    _SpecificPredatorKillRateConstant = _KillRateConstantEcto * Math.Pow((_BodyMassPredator), (_KillRateConstantMassExponentEcto)) * Math.Exp((_ActivationEnergyAttackRateEcto * (CellTemperature[currentMonth] - ReferenceTemperature)) / (_BoltzmannConstant * (CellTemperature[currentMonth] + 273) * (ReferenceTemperature + 273))); //in m2
+                    _SpecificPredatorKillRateConstant_withoutPrey = _KillRateConstantEcto * Math.Pow((_BodyMassPredator), (_KillRateConstantMassExponentEcto)) * Math.Exp((_ActivationEnergyAttackRateEcto * (CellTemperature[currentMonth] - ReferenceTemperature)) / (_BoltzmannConstant * (CellTemperature[currentMonth] + 273) * (ReferenceTemperature + 273))); //in m2
                                                                                                                                                                                                                                                                                                                                                                     // Convert FoRAGE attack rate from m2 to ha 
-                    _SpecificPredatorKillRateConstant *= 0.0001; //a(II) in ha/day   
+                    _SpecificPredatorKillRateConstant_withoutPrey *= 0.0001; //a(II) in ha/day   
 
                     _ReferenceMassRatioScalingTerrestrial = _HandlingTimeScalarTerrestrialEcto * Math.Pow((_BodyMassPredator), _HandlingTimeExponentTerrestrialEcto);
 
@@ -570,6 +572,7 @@ namespace Madingley
 
                 case "endotherm":
 
+                    _VarEctoEndo = 0;
 
                     _SpecificPredatorKillRateConstant = _KillRateConstant * Math.Pow(_BodyMassPredator, (_KillRateConstantMassExponent));
 
@@ -630,7 +633,7 @@ namespace Madingley
                     {
                         case "ectotherm":
 
-                            _SpecificPredatorKillRateConstant_III = (64.0 / 27.0) * CalculateHandlingTimeTerrestrialFORAGE(_BodyMassPrey) * Math.Pow(_SpecificPredatorKillRateConstant, 2);
+                            _SpecificPredatorKillRateConstant_III = (64.0 / 27.0) * CalculateHandlingTimeTerrestrial(_BodyMassPrey) * Math.Pow(_SpecificPredatorKillRateConstant_withoutPrey, 2);
                             _SpecificPredatorKillRateConstant = _SpecificPredatorKillRateConstant_III;
                             break;
 
@@ -650,7 +653,7 @@ namespace Madingley
                             case "ectotherm":
                                 // Add the time required to handle the potential abundance eaten from this cohort to the cumulative total for all cohorts
                                 _TimeUnitsToHandlePotentialFoodItems += _PotentialAbundanceEaten[FunctionalGroup][i] *
-                            CalculateHandlingTimeTerrestrialFORAGE(_BodyMassPrey);
+                            CalculateHandlingTimeTerrestrial(_BodyMassPrey);
 
                                 break;
                             case "endotherm":
@@ -670,6 +673,13 @@ namespace Madingley
                 }
             }
 
+
+            // No cannibalism; do this outside the loop to speed up the calculations
+            _TimeUnitsToHandlePotentialFoodItems -= PotentialAbundanceEaten[actingCohort[0]][actingCohort[1]] *
+                CalculateHandlingTimeTerrestrial(_BodyMassPredator);
+            PotentialAbundanceEaten[actingCohort[0]][actingCohort[1]] = 0.0;
+
+            /*
             switch (Thermy)
             {
                 case "ectotherm":
@@ -687,9 +697,9 @@ namespace Madingley
                     break;
 
             }
+            */
 
-
-            }
+        }
 
 
         /// <summary>
