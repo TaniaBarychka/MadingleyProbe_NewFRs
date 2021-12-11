@@ -632,7 +632,7 @@ namespace Madingley
 
         private double CalculateHandlingTimeTerrestrial(double preyIndividualMass)
         {
-            _HandlingTimePreyExponentTerrestrial = 0.28772;
+            _HandlingTimePreyExponentTerrestrial = 0.196;
             return _VarEctoEndo * _ReferenceMassRatioScalingTerrestrial * Math.Pow((preyIndividualMass), _HandlingTimePreyExponentTerrestrial) + (1-VarEctoEndo) * _ReferenceMassRatioScalingTerrestrial * preyIndividualMass;
         }
 
