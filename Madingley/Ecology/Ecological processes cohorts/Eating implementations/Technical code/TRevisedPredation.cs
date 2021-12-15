@@ -574,7 +574,7 @@ namespace Madingley
 
                     _VarEctoEndo = 0;
 
-                    _SpecificPredatorKillRateConstant = _KillRateConstant * Math.Pow(_BodyMassPredator, (_KillRateConstantMassExponent));
+                    _SpecificPredatorKillRateConstant_withoutPrey = _KillRateConstant * Math.Pow(_BodyMassPredator, (_KillRateConstantMassExponent));
 
                     _ReferenceMassRatioScalingTerrestrial = HandlingTimeScalarTerrestrial * Math.Pow(_ReferenceMass / _BodyMassPredator, _HandlingTimeExponentTerrestrial);
 
@@ -629,6 +629,12 @@ namespace Madingley
 
                     // Calculate the (type III converted) attack rate for the acting cohort on this prey cohort
                     // Can add the variance to intercept of attack rates for Type III for 20 C degrees reference temeprature calculated by Lucas on 09/09 based on the 95%CIs method (0.489845 = 1 se; 0.489845^2 = 2 se). For example, ...III=Math.Pow(0.489815,3) *..
+
+                    _SpecificPredatorKillRateConstant_III = _VarEctoEndo * (64.0 / 27.0) * CalculateHandlingTimeTerrestrial(_BodyMassPrey) * Math.Pow(_SpecificPredatorKillRateConstant_withoutPrey, 2) + (1 - _VarEctoEndo) * SpecificPredatorKillRateConstant_withoutPrey;
+
+                    _SpecificPredatorKillRateConstant = _SpecificPredatorKillRateConstant_III;
+
+                    /*
                     switch (Thermy)
                     {
                         case "ectotherm":
@@ -643,6 +649,7 @@ namespace Madingley
                             break;
 
                     }
+                    */
 
                     // Check whether the prey cohort still exists in the model (i.e. body mass > 0)            
                     if ((0 < PreyMassBinNumber) && (PreyMassBinNumber < NumberOfBins) && (_BodyMassPrey > 0))
